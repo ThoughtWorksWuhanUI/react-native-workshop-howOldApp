@@ -1,5 +1,15 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Button } from 'react-native';
+
+import ImagePicker, { showImagePicker } from "react-native-image-picker";
+
+const IMAGE_PICKER_OPTIONS = {
+  title: 'Use your own photo',
+  storageOptions: {
+    skipBackup: true,
+    path: 'images',
+  }
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -14,10 +24,23 @@ export default class Home extends React.Component {
     this.props.navigation.navigate('HowOld')
   };
 
+  showImagePicker = () => {
+    ImagePicker.showImagePicker(IMAGE_PICKER_OPTIONS, (response) => {
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else {
+        // TODO: need to check if we send the data or uri to howOld page
+      }
+    });
+  };
+
   render() {
     return (
       <View style={styles.container}>
         <Text onPress={this.goHowOld}>Press me to go to HowOld page.</Text>
+        <Button onPress={this.showImagePicker} title="Use your own photo" />
       </View>
     )
   }
