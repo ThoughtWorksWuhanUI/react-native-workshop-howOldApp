@@ -31,7 +31,9 @@ export default class Home extends React.Component {
       } else if (response.error) {
         console.log('ImagePicker Error: ', response.error);
       } else {
-        // TODO: need to check if we send the data or uri to howOld page
+        this.props.navigation.navigate('HowOld', {
+          selectedImage: response.uri,
+        });
       }
     });
   };
