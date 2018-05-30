@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, ActivityIndicator, StyleSheet } from 'react-native';
+import { COLOR } from "../constants/color";
 
 const styles = StyleSheet.create({
   container: {
@@ -8,21 +9,21 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    backgroundColor: 'transparent',
+    backgroundColor: COLOR.TRANSPARENT,
     zIndex: 1000,
     flexDirection: 'row',
     alignItems: 'flex-start',
     justifyContent: 'center',
   },
   text: {
-    color: '#048BA8',
+    color: COLOR.BLUE,
     marginLeft: 5,
   },
 });
 
 export default ({ text }) => (
   <View style={styles.container}>
-    <ActivityIndicator size="small" color={'#048BA8'} />
+    <ActivityIndicator size="small" color={COLOR.BLUE} />
     <Text style={styles.text}>{text}</Text>
   </View>
 );

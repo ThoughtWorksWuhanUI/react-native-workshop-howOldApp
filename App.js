@@ -2,6 +2,7 @@ import React from 'react';
 import { StackNavigator } from 'react-navigation';
 import Home from './app/components/home';
 import HowOld from './app/components/howOld';
+import { COLOR } from "./app/constants/color";
 
 const App = StackNavigator({
   Home: {
@@ -15,6 +16,15 @@ const App = StackNavigator({
     navigationOptions: {
       title: 'How Old',
     },
+  }
+},
+{
+  initialRouteName: 'Home',
+  navigationOptions: {
+    headerStyle: {
+      backgroundColor: COLOR.BLUE,
+    },
+    headerTintColor: COLOR.WHITE,
   }
 });
 
