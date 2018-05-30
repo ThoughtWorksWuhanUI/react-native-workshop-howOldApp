@@ -3,6 +3,7 @@ import _ from 'lodash';
 import Loading from './Loading';
 import { Alert, View, Text, StyleSheet, Image, Dimensions } from 'react-native';
 import { getFaceInfo } from '../utils/face';
+import { SCREEN } from "../constants/screen";
 
 const styles = StyleSheet.create({
   container: {
@@ -16,7 +17,7 @@ const styles = StyleSheet.create({
   image: {
     flex: 1,
     alignSelf: 'stretch',
-    width: Dimensions.get('window').width,
+    width: SCREEN.width,
     height: 'auto',
   },
   ageInfo: {

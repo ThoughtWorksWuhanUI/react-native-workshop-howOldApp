@@ -6,13 +6,15 @@ import RNFetchBlob from 'react-native-fetch-blob';
 export const getFaceInfo = imagePath => {
   const faceApiUrl = settings.FACE_API_URL;
   const faceApiKey = settings.FACE_API_KEY;
-  const imageUrl = Platform.OS === 'ios' ? _.replace(imagePath, 'file://', '')  : imagePath;
+  const isRemoteImage = _.includes(imagePath, 'https');
+  const imageUrl = !isRemoteImage && Platform.OS === 'ios' ? _.replace(imagePath, 'file://', '')  : imagePath;
   const headers = {
-    'Content-Type': 'application/octet-stream',
+    'Content-Type': isRemoteImage ? 'application/json' : 'application/octet-stream',
     'Ocp-Apim-Subscription-Key': faceApiKey,
   };
+  const body = isRemoteImage ? JSON.stringify({ url: imageUrl }) : RNFetchBlob.wrap(imageUrl);
   return new Promise((resolve, reject) => {
-    RNFetchBlob.fetch('POST', faceApiUrl, headers, RNFetchBlob.wrap(imageUrl))
+    RNFetchBlob.fetch('POST', faceApiUrl, headers, body)
       .then(res => {
         const data = _.get(res, 'data');
         const faceInfo = _.isEmpty(data) ? null : JSON.parse(data);
