@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Button, TouchableWithoutFeedback, Image } from 'react-native';
+import { Alert, View, Text, StyleSheet, Button, TouchableWithoutFeedback, Image } from 'react-native';
 import Swiper from 'react-native-swiper';
 import { COLOR } from "../constants/color";
 import { SCREEN } from "../constants/screen";
@@ -39,6 +39,8 @@ const DEFAULT_IMAGES = [
   'https://how-old.net/Images/faces2/scroll004.jpg',
 ];
 
+const MAX_IMAGE_FILE_SIZE = 4 * 1000 * 1000;
+
 export default class Home extends React.Component {
   goHowOld = (uri) => {
     this.props.navigation.navigate('HowOld', {
@@ -53,6 +55,9 @@ export default class Home extends React.Component {
       } else if (response.error) {
         console.log('ImagePicker Error: ', response.error);
       } else {
+        if (response.fileSize > MAX_IMAGE_FILE_SIZE) {
+          return Alert.alert('please select image less than 4M');
+        }
         this.goHowOld(response.uri)
       }
     });
